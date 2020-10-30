@@ -1,0 +1,154 @@
+/* NAVBAR */
+.logo {
+    height: 4rem;
+}
+
+.navbar-menu {
+    justify-content: flex-end;
+    margin-right: 5rem;
+}
+
+/* ACCUEUIL */
+.jumbotron {
+    width: 80%;
+    border-radius: 1rem;
+    margin: 5rem auto;
+}
+
+.jumbotron-body {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.jumbotron-body li {
+    margin-bottom: 1rem;
+}
+
+/* DOCUMENT */
+.card-container {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.card-container .card {
+    width: 20rem;
+    height: 35rem;
+    margin-bottom: 2rem;
+}
+
+.card-container .card img {
+    height: 70%;
+}
+
+form {
+    width: 80%;
+    margin: 5rem auto;
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.pagination ul {
+    margin: 1rem auto;
+}
+
+/* DOCUMENT-DETAIL */
+.detail {
+    width: 80%;
+    margin: auto;
+}
+
+.detail-header {
+    margin-top: 2rem;
+}
+
+.detail-header >* {
+    padding: 1rem;
+}
+
+.detail-img img {
+    display: block;
+    margin: auto;
+    height: 30rem;
+    width: 22rem;
+}
+
+.detail-info {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-info h2 {
+    text-align: center;
+    background-color: #d3e0ed;
+    padding: 1rem;
+    border-radius: 0.2rem;
+    width: 100%;
+}
+
+.detail-description, .detail-exemplars {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #d3e0ed;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+/* LOGIN */
+.login {
+    max-width: 320px;
+    width: 90%;
+    margin: 3rem auto;
+    padding: 1rem;
+    background-color: #343a40;
+    border-radius: 0.5rem;
+}
+
+.login form >* {
+    margin-bottom: 2rem;
+}
+
+.login .logo {
+    height: 4rem;
+    width: 12rem;
+    display: block;
+    margin: 0 auto 2rem auto;
+}
+
+/* PROFIL */
+.profil-container {
+    width: 70%;
+    margin: 2rem auto;
+}
+
+.profil-container li {
+    margin: 0.5rem 0;
+}
+
+.renewal-button {
+    margin-left: 2rem;
+}
+
+.profil-container .card {
+    margin-top: 2rem;
+}
+
+.profil-container .card-header {
+    display: flex;
+}
+
+.profil-container h3 {
+    margin-left: 1rem;
+}
+
+.col-renewal-button {
+    text-align: center;
+}

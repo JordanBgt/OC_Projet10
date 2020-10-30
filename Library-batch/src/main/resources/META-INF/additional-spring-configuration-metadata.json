@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "app.periodicityCron",
+      "type": "java.lang.String",
+      "description": "Periodicity of the cron task."
+    },
+    {
+      "name": "app.apiUrl",
+      "type": "java.lang.String",
+      "description": "url of the Library api."
+    }
+  ] }
