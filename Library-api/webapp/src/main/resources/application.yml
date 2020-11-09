@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:8889/library?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:8889/library_2?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: root
   jpa:
@@ -16,5 +16,5 @@ jwt:
   expirationMs: 86400000
 
 business:
-  uploadsDir: /Users/jordan/OPC_Projet7 copie/uploads
+  uploadsDir: /Users/jordan/OC_Projet10/uploads
   loanPeriod: 4
