@@ -11,6 +11,7 @@ public class Loan {
     private User user;
     private Exemplar exemplar;
     private String cssClass;
+    private boolean canBeRenewed;
 
     public Loan() {
     }
@@ -78,5 +79,13 @@ public class Loan {
 
     public void setCssClass(String cssClass) {
         this.cssClass = cssClass;
+    }
+
+    public boolean canBeRenewed() {
+        return canBeRenewed;
+    }
+
+    public void setCanBeRenewed(boolean canBeRenewed) {
+        this.canBeRenewed = canBeRenewed;
     }
 }

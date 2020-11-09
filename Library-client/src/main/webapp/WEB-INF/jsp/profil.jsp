@@ -47,7 +47,7 @@
                                             ${loan.exemplar.documentTitle} - ${loan.exemplar.library.name} - <span class="badge badge-${loan.cssClass}">${loan.endDate}</span>
                                     </div>
                                     <div class="col-12 col-lg-3 col-renewal-button">
-                                        <c:if test="${!loan.renewed}">
+                                        <c:if test="${loan.canBeRenewed()}">
                                             <a href="<c:url value="/profil/${loan.id}/renewal" />" class="btn btn-primary renewal-button" >Renouveler</a>
                                         </c:if>
                                     </div>

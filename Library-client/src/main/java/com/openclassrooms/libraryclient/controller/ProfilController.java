@@ -28,6 +28,8 @@ public class ProfilController {
     @Autowired
     private LoanProxy loanProxy;
 
+    private LocalDate currentDate = LocalDate.now();
+
     /**
      * Method to display profil page
      *
@@ -42,8 +44,8 @@ public class ProfilController {
         User user = (User) session.getAttribute("user");
         String bearerToken = (String) session.getAttribute("auth-token");
         List<Loan> userLoans = loanProxy.getAllByUser(user.getId(), "Bearer " + bearerToken);
-        LocalDate currentDate = LocalDate.now();
-        userLoans.forEach(loan -> setLoansCssClass(loan, currentDate));
+        userLoans.forEach(this::setLoansCssClass);
+        userLoans.forEach(this::checkIfLoanCanBeRenewed);
         model.addAttribute("loans", userLoans);
         model.addAttribute("user", user);
 
@@ -70,10 +72,9 @@ public class ProfilController {
      * Method to set loan css class depending on the number of days remaining between the current date and the end date of the loan
      *
      * @param loan loan for which we want to set the css class
-     * @param currentDate current date
      */
-    private void setLoansCssClass(Loan loan, LocalDate currentDate) {
-        long daysBetween = ChronoUnit.DAYS.between(currentDate, loan.getEndDate());
+    private void setLoansCssClass(Loan loan) {
+        long daysBetween = ChronoUnit.DAYS.between(this.currentDate, loan.getEndDate());
         if (daysBetween < 0) {
             loan.setCssClass("danger");
         } else if (daysBetween <= 3) {
@@ -81,5 +82,9 @@ public class ProfilController {
         } else {
             loan.setCssClass("info");
         }
+    }
+
+    private void checkIfLoanCanBeRenewed(Loan loan) {
+        loan.setCanBeRenewed(!loan.isRenewed() && !currentDate.isAfter(loan.getEndDate()));
     }
 }
