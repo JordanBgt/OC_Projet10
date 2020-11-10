@@ -119,11 +119,14 @@ public class LoanService {
      * @see LoanRepository#save(Object)
      */
     public void renew(Long id) throws Exception {
+        LocalDate currentDate = LocalDate.now();
         Loan loan = loanRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         if (loan.isRenewed()) {
-            // TODO : créer une exception
             throw new Exception("Le prêt a déjà été renouvelé une fois");
-        } else {
+        } else if (currentDate.isAfter(loan.getEndDate())){
+            throw new Exception("Le prêt ne peut être renouvelé après sa date de fin");
+        }
+        else {
             loan.setRenewed(true);
             loan.setEndDate(loan.getEndDate().plusWeeks(loanPeriod));
             loanRepository.save(loan);
