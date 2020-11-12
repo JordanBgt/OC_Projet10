@@ -14,12 +14,15 @@ public class DocumentDto {
     private String type;
     private String category;
     private PhotoDto photo;
+    private WaitingListDto waitingList;
+
 
     public DocumentDto() {
     }
 
     public DocumentDto(Long id, String title, String isbn, String description, LocalDate publicationDate,
-                       PublisherDto publisher, AuthorDto author, String type, String category, PhotoDto photo) {
+                       PublisherDto publisher, AuthorDto author, String type, String category, PhotoDto photo,
+                       WaitingListDto waitingList) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;
@@ -30,6 +33,7 @@ public class DocumentDto {
         this.type = type;
         this.category = category;
         this.photo = photo;
+        this.waitingList = waitingList;
     }
 
     public Long getId() {
@@ -111,4 +115,13 @@ public class DocumentDto {
     public void setPhoto(PhotoDto photo) {
         this.photo = photo;
     }
+
+    public WaitingListDto getWaitingList() {
+        return waitingList;
+    }
+
+    public void setWaitingList(WaitingListDto waitingList) {
+        this.waitingList = waitingList;
+    }
+
 }

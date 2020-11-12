@@ -51,6 +51,9 @@ public class DocumentService {
     @Autowired
     private FileStorageService fileStorageService;
 
+    @Autowired
+    private WaitingListService waitingListService;
+
     /**
      * Method to retrieve all documents. For each document, we convert the photo file to base 64
      *
@@ -86,14 +89,16 @@ public class DocumentService {
      * @see DocumentService#convertFileToBase64String(Resource)
      */
     public DocumentDto findById(Long id) {
-        DocumentDto result = documentMapper.toDocumentDto(documentRepository.findById(id).orElseThrow(EntityNotFoundException::new));
-
-        if (result.getPhoto() != null) {
-            String base64String = this.convertFileToBase64String(fileStorageService.load(result.getPhoto().getName()));
-            result.getPhoto().setFileToBase64String(base64String);
+        Document document = documentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        waitingListService.checkIfWaitingListIsFull(document.getWaitingList());
+        DocumentDto documentDto = documentMapper.toDocumentDto(document);
+        waitingListService.setWaitingListDtoAttributes(documentDto.getWaitingList());
+        if (documentDto.getPhoto() != null) {
+            String base64String = this.convertFileToBase64String(fileStorageService.load(documentDto.getPhoto().getName()));
+            documentDto.getPhoto().setFileToBase64String(base64String);
         }
 
-        return result;
+        return documentDto;
     }
 
     /**

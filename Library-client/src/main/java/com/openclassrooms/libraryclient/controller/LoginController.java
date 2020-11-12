@@ -3,7 +3,9 @@ package com.openclassrooms.libraryclient.controller;
 import com.openclassrooms.libraryclient.model.JwtResponse;
 import com.openclassrooms.libraryclient.model.LoginForm;
 import com.openclassrooms.libraryclient.model.User;
+import com.openclassrooms.libraryclient.model.UserProfil;
 import com.openclassrooms.libraryclient.proxy.AuthProxy;
+import com.openclassrooms.libraryclient.service.ProfilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ public class LoginController {
 
     @Autowired
     private AuthProxy authProxy;
+
+    @Autowired
+    private ProfilService profilService;
 
     /**
      * It displays login.jsp
@@ -54,7 +59,8 @@ public class LoginController {
         JwtResponse response = authProxy.authenticateUser(loginForm).getBody();
         session.setAttribute("auth-token", response.getToken());
         User user = new User(response.getId(), response.getUsername(), response.getEmail());
-        session.setAttribute("user", user);
+        UserProfil userProfil = profilService.loadUserProfil(user, response.getToken());
+        session.setAttribute("userProfil", userProfil);
         return new ModelAndView("redirect:/");
     }
 }

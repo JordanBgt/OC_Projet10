@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -94,6 +95,19 @@ public class DocumentController {
     public ModelAndView searchDocuments(@ModelAttribute DocumentForm documentForm) {
         this.documentForm = documentForm;
         return new ModelAndView("redirect:/documents");
+    }
+
+    private boolean checkIfUserCanBeAddedToWaitingList(User user, Document document) {
+        if (user == null) {
+            return false;
+        }
+        else if (document.getWaitingList().isFull()) {
+            return false;
+        }
+        // s'il a un emprunt en cours => false
+        // s'il a une réservation en cours pour cet ouvrage => false
+
+        return true;
     }
 
 }

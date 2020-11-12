@@ -40,6 +40,9 @@ public class ExemplarService {
     @Autowired
     private LibraryRepository libraryRepository;
 
+    @Autowired
+    private WaitingListService waitingListService;
+
     /**
      * Method to create or update an exemplar
      *
@@ -58,10 +61,20 @@ public class ExemplarService {
         } else {
             exemplar = new Exemplar();
             exemplar.setReference(generateReference(document.getType(), document.getIsbn()));
+            updateWaitingListSize(document);
         }
         exemplar.setDocument(document);
         exemplar.setLibrary(library);
         return exemplarMapper.toExemplarDto(exemplarRepository.save(exemplar));
+    }
+
+    /**
+     * Method to update waitingList size when we add an exemplar
+     *
+     * @param document document
+     */
+    private void updateWaitingListSize(Document document) {
+        waitingListService.setWaitingListSize(document.getWaitingList(), document.getId());
     }
 
     /**
@@ -89,13 +102,16 @@ public class ExemplarService {
     }
 
     /**
-     * Method to delete an exemplar by its id
+     * Method to delete an exemplar by its id. We also update the size of the waitingList
      *
      * @param id id of the exemplar to delete
      * @see ExemplarRepository#deleteById(Object)
      */
     public void delete(Long id) {
-        exemplarRepository.deleteById(id);
+        Exemplar exemplar = exemplarRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        Document document = documentRepository.findById(exemplar.getDocument().getId()).orElseThrow(EntityNotFoundException::new);
+        exemplarRepository.delete(exemplar);
+        updateWaitingListSize(document);
     }
 
     /**

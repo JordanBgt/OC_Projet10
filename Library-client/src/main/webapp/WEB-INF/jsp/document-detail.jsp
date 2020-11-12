@@ -52,7 +52,12 @@
                                 </li>
                             </c:forEach>
                         </c:when>
-                        <c:otherwise>Tous les exemplaires sont actuellement prêtés.</c:otherwise>
+                        <c:otherwise>
+                            <p>Tous les exemplaires sont actuellement prêtés</p>>
+                            <p>Prochaine date de retour prévue : ${document.waitingList.endDateNextLoanReturn}</p>
+                            <p>Nombre de personnes ayant reservé l'ouvrage : ${document.waitingList.numberUsersInWaitingList}</p>
+                            <p>Nombre de places disponibles dans la file d'attente : ${document.waitingList.size - document.waitingList.numberUsersInWaitingList}</p>
+                        </c:otherwise>
                     </c:choose>
                 </ul>
             </div>
