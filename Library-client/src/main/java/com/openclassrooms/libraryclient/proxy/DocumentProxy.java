@@ -27,5 +27,5 @@ public interface DocumentProxy {
                                                 @RequestParam(defaultValue = "false") boolean unpaged);
 
     @GetMapping("/{id}")
-    Document getDocument(@PathVariable Long id);
+    Document getDocument(@PathVariable Long id, @RequestParam Long userId);
 }

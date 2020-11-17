@@ -15,6 +15,7 @@ public class DocumentDto {
     private String category;
     private PhotoDto photo;
     private WaitingListDto waitingList;
+    private boolean canBeReserved = true;
 
 
     public DocumentDto() {
@@ -124,4 +125,11 @@ public class DocumentDto {
         this.waitingList = waitingList;
     }
 
+    public boolean isCanBeReserved() {
+        return canBeReserved;
+    }
+
+    public void setCanBeReserved(boolean canBeReserved) {
+        this.canBeReserved = canBeReserved;
+    }
 }

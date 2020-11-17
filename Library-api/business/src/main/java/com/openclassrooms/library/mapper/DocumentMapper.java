@@ -13,6 +13,7 @@ public interface DocumentMapper {
     @Mappings({
             @Mapping(target = "type", source = "type.label"),
             @Mapping(target = "category", source = "category.label"),
+            @Mapping(target = "canBeReserved", defaultValue = "true")
     })
     DocumentDto toDocumentDto(Document document);
 

@@ -58,6 +58,7 @@ public class UserWaitingListService {
             userWaitingList.setDate(LocalDate.now());
             userWaitingList.setUser(user);
             userWaitingList.setUserPosition(userWaitingListNumber +1);
+            userWaitingList.setWaitingList(waitingList);
             userWaitingListRepository.save(userWaitingList);
         } else {
             throw new OperationNotSupportedException("La liste d'attente est pleine");

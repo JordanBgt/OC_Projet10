@@ -1,9 +1,7 @@
 package com.openclassrooms.library.service;
 
+import com.openclassrooms.library.dao.*;
 import com.querydsl.core.types.Predicate;
-import com.openclassrooms.library.dao.AuthorRepository;
-import com.openclassrooms.library.dao.DocumentRepository;
-import com.openclassrooms.library.dao.PublisherRepository;
 import com.openclassrooms.library.dao.predicate.DocumentPredicateBuilder;
 import com.openclassrooms.library.dto.DocumentDto;
 import com.openclassrooms.library.dto.DocumentLightDto;
@@ -54,6 +52,12 @@ public class DocumentService {
     @Autowired
     private WaitingListService waitingListService;
 
+    @Autowired
+    private LoanRepository loanRepository;
+
+    @Autowired
+    private UserWaitingListRepository userWaitingListRepository;
+
     /**
      * Method to retrieve all documents. For each document, we convert the photo file to base 64
      *
@@ -82,14 +86,14 @@ public class DocumentService {
     /**
      * Method to retrieve one document by its id. We convert its photo file to base 64
      *
-     * @param id id of the requested document
-     *
+     * @param documentId id of the requested document
+     * @param userId id of the connected user
      * @return a document
      * @see DocumentRepository#findById(Object)
      * @see DocumentService#convertFileToBase64String(Resource)
      */
-    public DocumentDto findById(Long id) {
-        Document document = documentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    public DocumentDto findById(Long documentId, Long userId) {
+        Document document = documentRepository.findById(documentId).orElseThrow(EntityNotFoundException::new);
         waitingListService.checkIfWaitingListIsFull(document.getWaitingList());
         DocumentDto documentDto = documentMapper.toDocumentDto(document);
         waitingListService.setWaitingListDtoAttributes(documentDto.getWaitingList());
@@ -97,6 +101,7 @@ public class DocumentService {
             String base64String = this.convertFileToBase64String(fileStorageService.load(documentDto.getPhoto().getName()));
             documentDto.getPhoto().setFileToBase64String(base64String);
         }
+        documentDto.setCanBeReserved(checkIfDocumentCanBeReserved(documentDto, userId));
 
         return documentDto;
     }
@@ -155,6 +160,24 @@ public class DocumentService {
             e.printStackTrace();
         }
         return "data:image/jpg;base64," + Base64.getEncoder().encodeToString(photoToByteArray);
+    }
+
+    /**
+     * Method to check if a document can be reserved
+     *
+     * @param document document to check
+     * @param userId the user who wants to reserve (or null if the user is not connected)
+     *
+     * @return boolean
+     */
+    private boolean checkIfDocumentCanBeReserved(DocumentDto document, Long userId) {
+        if (document.getWaitingList().isFull()) {
+            return false;
+        } else if (userId == null) {
+            return false;
+        } else if (loanRepository.findLoandByDocumentIdAndUserId(document.getId(), userId) != null) {
+            return false;
+        } else return userWaitingListRepository.findByWaitingListIdAndUserId(document.getWaitingList().getId(), userId) == null;
     }
 
 }

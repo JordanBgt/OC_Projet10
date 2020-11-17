@@ -26,13 +26,13 @@ public class UserWaitingListController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{userId}")
-    private List<UserWaitingListDto> getUserWaitingListsByUserId(@PathVariable Long userId) {
+    public List<UserWaitingListDto> getUserWaitingListsByUserId(@PathVariable Long userId) {
         return userWaitingListService.findAllByUserId(userId);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @PostMapping()
-    private ResponseEntity<Void> addUserToWaitingList(@RequestBody UserWaitingListDto userWaitingListDto) {
+    public ResponseEntity<Void> addUserToWaitingList(@RequestBody UserWaitingListDto userWaitingListDto) {
         try {
             userWaitingListService.createUserWaitingList(userWaitingListDto);
         } catch (EntityNotFoundException | OperationNotSupportedException e){
@@ -47,7 +47,7 @@ public class UserWaitingListController {
 
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{userWaitingListId}")
-    private ResponseEntity<Void> deleteUserWaitingList(@PathVariable Long userWaitingListId) {
+    public ResponseEntity<Void> deleteUserWaitingList(@PathVariable Long userWaitingListId) {
         userWaitingListService.deleteUserWaitingList(userWaitingListId);
         return ResponseEntity.noContent().build();
     }

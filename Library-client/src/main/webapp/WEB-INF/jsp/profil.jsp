@@ -22,8 +22,8 @@
             <h3>Utilisateur</h3>
         </div>
         <div class="card-body">
-            <p>Username : ${userProfil.user.username}</p>
-            <p>Email : ${userProfil.user.email}</p>
+            <p>Username : ${user.username}</p>
+            <p>Email : ${user.email}</p>
         </div>
     </div>
 
@@ -38,9 +38,9 @@
         </div>
         <div class="card-body">
             <c:choose>
-                <c:when test="${userProfil.loans.size() > 0}">
+                <c:when test="${loans.size() > 0}">
                     <ul class="list-group">
-                        <c:forEach items="${userProfil.loans}" var="loan">
+                        <c:forEach items="${loans}" var="loan">
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-12 col-lg-9">
@@ -74,17 +74,26 @@
         </div>
         <div class="card-body">
             <c:choose>
-                <c:when test="${userProfil.userWaitingLists.size() > 0}">
-                    <ul class="list-group">
-                        <c:forEach items="${userProfil.userWaitingLists}" var="userWaitingList">
+                <c:when test="${userWaitingLists.size() > 0}">
+                    <ul class="list-group reservation-profil-list">
+                        <c:forEach items="${userWaitingLists}" var="userWaitingList">
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-12 col-lg-9">
-                                        ${userWaitingList.waitingList.documentTitle} - ${userWaitingList.userPosition} - ${userWaitingList.waitingList.endDateNextLoanReturn}
+                                        <ul class="reservation-profil-content">
+                                            <li>
+                                                <span>${userWaitingList.waitingList.documentTitle}</span>
+                                            </li>
+                                            <li>
+                                                <span>Position dans la file d'attente :</span> ${userWaitingList.userPosition}
+                                            </li>
+                                            <li>
+                                                <span>Date prochain retour de prêt :</span> ${userWaitingList.waitingList.endDateNextLoanReturn}
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="col-12 col-lg-3 col-renewal-button">
-                                        <!-- supprimer condition et mettre un lien pour annuler la reservation -->
-                                        <a href="<c:url value="/profil/userWaitingList/${userWaitingList.id}" />" class="btn btn-primary renewal-button" >Supprimer</a>
+                                    <div class="col-12 col-lg-3 reservation-button-div">
+                                        <a href="<c:url value="/profil/userWaitingList/${userWaitingList.id}" />" class="btn btn-primary reservation-button" >Supprimer</a>
                                     </div>
                                 </div>
                             </li>
@@ -92,7 +101,7 @@
                     </ul>
                 </c:when>
                 <c:otherwise>
-                    Aucun prêt en cours
+                    Aucune réservation en cours
                 </c:otherwise>
             </c:choose>
         </div>

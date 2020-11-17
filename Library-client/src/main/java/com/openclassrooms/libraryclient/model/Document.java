@@ -14,13 +14,14 @@ public class Document {
     private String category;
     private Photo photo;
     private WaitingList waitingList;
+    private boolean canBeReserved;
 
     public Document() {
     }
 
     public Document(Long id, String title, String isbn, String description, LocalDate publicationDate,
                     Publisher publisher, Author author, String type, String category, Photo photo,
-                    WaitingList waitingList) {
+                    WaitingList waitingList, boolean canBeReserved) {
         this.id = id;
         this.title = title;
         this.isbn = isbn;
@@ -32,6 +33,7 @@ public class Document {
         this.category = category;
         this.photo = photo;
         this.waitingList = waitingList;
+        this.canBeReserved = canBeReserved;
     }
 
     public Long getId() {
@@ -120,5 +122,13 @@ public class Document {
 
     public void setWaitingList(WaitingList waitingList) {
         this.waitingList = waitingList;
+    }
+
+    public boolean isCanBeReserved() {
+        return canBeReserved;
+    }
+
+    public void setCanBeReserved(boolean canBeReserved) {
+        this.canBeReserved = canBeReserved;
     }
 }
