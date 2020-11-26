@@ -1,6 +1,7 @@
 package com.openclassrooms.librarybatch.service;
 
 import com.openclassrooms.librarybatch.model.Loan;
+import com.openclassrooms.librarybatch.model.UserWaitingList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -40,6 +41,23 @@ public class EmailService {
         message.setContent(htmlMessage, "text/html");
         helper.setTo(loan.getUser().getEmail());
         helper.setSubject("Les bibliothèques de Lyon : prêt échu");
+        emailSender.send(message);
+    }
+
+    /**
+     * Method to send an email to users who have reserved an exemplar
+     *
+     * @param userWaitingList userWaitingList
+     * @throws MessagingException exception thrown by java mail
+     */
+    public void sendCheckOutMail(UserWaitingList userWaitingList) throws MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+        String htmlMessage = "<h5>Bonjour " + userWaitingList.getUser().getUsername() + ",</h5> <p>Nous vous informons que le document "
+                + userWaitingList.getDocumentTitle() +  " est de nouveau disponible dans nos bibliothèques. Vous disposez d'un délai de 48h pour venir l'emprunter.</p>";
+        message.setContent(htmlMessage, "text/html");
+        helper.setTo(userWaitingList.getUser().getEmail());
+        helper.setSubject("Les bibliothèques de Lyon : ouvrage disponible");
         emailSender.send(message);
     }
 

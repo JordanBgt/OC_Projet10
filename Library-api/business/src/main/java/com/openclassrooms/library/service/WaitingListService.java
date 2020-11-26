@@ -61,6 +61,11 @@ public class WaitingListService {
         waitingList.setSize(exemplarNumber * 2);
     }
 
+    /**
+     * Method to set the waitingListDto' size and documentId
+     *
+     * @param waitingListDto the waitingListDto to complete
+     */
     public void setWaitingListDtoAttributes(WaitingListDto waitingListDto) {
         int numberUsersInWaitingList = userWaitingListRepository.findAllByWaitingListId(waitingListDto.getId()).size();
         waitingListDto.setNumberUsersInWaitingList(numberUsersInWaitingList);

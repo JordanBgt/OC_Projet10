@@ -1,6 +1,7 @@
 package com.openclassrooms.library.dao;
 
 import com.openclassrooms.library.entity.UserWaitingList;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,10 @@ public interface UserWaitingListRepository extends CrudRepository<UserWaitingLis
     List<UserWaitingList> findAllByUserPositionGreaterThan(Long position);
 
     List<UserWaitingList> findAllByUserId(Long userId);
+
+    UserWaitingList findByWaitingListIdAndUserPosition(Long waitingListId, Long userPosition);
+
+    @Query(value = "SELECT * FROM library_2.user_waiting_list\n" +
+            "WHERE (SELECT DATEDIFF(NOW(), mailing_date)) >= 2", nativeQuery = true)
+    List<UserWaitingList> findAllWhereMailingDateIsGreaterThanOrEqualTo2Days();
 }

@@ -1,24 +1,21 @@
-package com.openclassrooms.library.dto;
+package com.openclassrooms.librarybatch.model;
 
-public class DocumentLightDto {
+public class DocumentLight {
 
     private Long id;
     private String title;
     private String authorLastName;
     private String authorFirstName;
-    private PhotoDto photo;
     private Long waitingListId;
 
-    public DocumentLightDto() {
+    public DocumentLight() {
     }
 
-    public DocumentLightDto(Long id, String title, String authorLastName,
-                            String authorFirstName, PhotoDto photo, Long waitingListId) {
+    public DocumentLight(Long id, String title, String authorLastName, String authorFirstName, Long waitingListId) {
         this.id = id;
         this.title = title;
         this.authorLastName = authorLastName;
         this.authorFirstName = authorFirstName;
-        this.photo = photo;
         this.waitingListId = waitingListId;
     }
 
@@ -52,14 +49,6 @@ public class DocumentLightDto {
 
     public void setAuthorFirstName(String authorFirstName) {
         this.authorFirstName = authorFirstName;
-    }
-
-    public PhotoDto getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(PhotoDto photo) {
-        this.photo = photo;
     }
 
     public Long getWaitingListId() {

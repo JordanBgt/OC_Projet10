@@ -1,23 +1,26 @@
-package com.openclassrooms.library.dto;
+package com.openclassrooms.librarybatch.model;
 
 import java.time.LocalDate;
 
-public class UserWaitingListDto {
+public class UserWaitingList {
 
     private Long id;
-    private UserDTo user;
-    private WaitingListDto waitingList;
+    private User user;
+    private WaitingList waitingList;
     private Integer userPosition;
     private LocalDate mailingDate;
+    private String documentTitle;
 
-    public UserWaitingListDto() {}
+    public UserWaitingList() {}
 
-    public UserWaitingListDto(Long id, UserDTo user, WaitingListDto waitingList, Integer userPosition, LocalDate mailingDate) {
+    public UserWaitingList(Long id, User user, WaitingList waitingList, Integer userPosition, LocalDate mailingDate,
+                           String documentTitle) {
         this.id = id;
         this.user = user;
         this.waitingList = waitingList;
         this.userPosition = userPosition;
         this.mailingDate = mailingDate;
+        this.documentTitle = documentTitle;
     }
 
     public Long getId() {
@@ -28,19 +31,19 @@ public class UserWaitingListDto {
         this.id = id;
     }
 
-    public UserDTo getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserDTo user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public WaitingListDto getWaitingList() {
+    public WaitingList getWaitingList() {
         return waitingList;
     }
 
-    public void setWaitingList(WaitingListDto waitingList) {
+    public void setWaitingList(WaitingList waitingList) {
         this.waitingList = waitingList;
     }
 
@@ -58,5 +61,13 @@ public class UserWaitingListDto {
 
     public void setMailingDate(LocalDate mailingDate) {
         this.mailingDate = mailingDate;
+    }
+
+    public String getDocumentTitle() {
+        return documentTitle;
+    }
+
+    public void setDocumentTitle(String documentTitle) {
+        this.documentTitle = documentTitle;
     }
 }

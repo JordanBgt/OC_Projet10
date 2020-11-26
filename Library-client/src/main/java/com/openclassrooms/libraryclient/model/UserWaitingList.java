@@ -8,17 +8,17 @@ public class UserWaitingList {
     private User user;
     private WaitingList waitingList;
     private Integer userPosition;
-    private LocalDate date;
+    private LocalDate mailingDate;
 
     public UserWaitingList() {
     }
 
-    public UserWaitingList(Long id, User user, WaitingList waitingList, Integer userPosition, LocalDate date) {
+    public UserWaitingList(Long id, User user, WaitingList waitingList, Integer userPosition, LocalDate mailingDate) {
         this.id = id;
         this.user = user;
         this.waitingList = waitingList;
         this.userPosition = userPosition;
-        this.date = date;
+        this.mailingDate = mailingDate;
     }
 
     public Long getId() {
@@ -53,11 +53,11 @@ public class UserWaitingList {
         this.userPosition = userPosition;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getMailingDate() {
+        return mailingDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setMailingDate(LocalDate mailingDate) {
+        this.mailingDate = mailingDate;
     }
 }

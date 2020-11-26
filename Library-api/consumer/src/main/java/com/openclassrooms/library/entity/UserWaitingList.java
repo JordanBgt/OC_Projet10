@@ -22,7 +22,8 @@ public class UserWaitingList {
     @Column(name = "user_position")
     private Long userPosition;
 
-    private LocalDate date;
+    @Column(name = "mailing_date")
+    private LocalDate mailingDate;
 
     public UserWaitingList() {
     }
@@ -59,11 +60,11 @@ public class UserWaitingList {
         this.userPosition = userPosition;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getMailingDate() {
+        return mailingDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setMailingDate(LocalDate date) {
+        this.mailingDate = date;
     }
 }

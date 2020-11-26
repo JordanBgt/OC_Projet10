@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.OperationNotSupportedException;
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -55,7 +54,6 @@ public class UserWaitingListService {
         Long userWaitingListNumber = userWaitingListRepository.countByWaitingListId(waitingList.getId());
         if (!waitingList.isFull()) {
             UserWaitingList userWaitingList = new UserWaitingList();
-            userWaitingList.setDate(LocalDate.now());
             userWaitingList.setUser(user);
             userWaitingList.setUserPosition(userWaitingListNumber +1);
             userWaitingList.setWaitingList(waitingList);
@@ -64,6 +62,18 @@ public class UserWaitingListService {
             throw new OperationNotSupportedException("La liste d'attente est pleine");
         }
 
+    }
+
+    /**
+     * Method to update a userWaitingList
+     *
+     * @param userWaitingListDto userWaitingList to save
+     */
+    public void updateUserWaitingList(UserWaitingListDto userWaitingListDto) {
+        UserWaitingList userWaitingList = userWaitingListRepository.findById(userWaitingListDto.getId()).orElseThrow(EntityNotFoundException::new);
+        userWaitingList.setUserPosition(Long.valueOf(userWaitingListDto.getUserPosition()));
+        userWaitingList.setMailingDate(userWaitingListDto.getMailingDate());
+        userWaitingListRepository.save(userWaitingList);
     }
 
     /**
@@ -106,5 +116,26 @@ public class UserWaitingListService {
      */
     public List<UserWaitingListDto> findAllByWaitingListId(Long waitingListId) {
         return userWaitingListMapper.toListUserWaitingListDto(userWaitingListRepository.findAllByWaitingListId(waitingListId));
+    }
+
+    /**
+     * Method to find the userWaitingList with first position
+     *
+     * @param waitingListId id of the waitingList
+     *
+     * @return a UserWaitingListDto
+     */
+    public UserWaitingListDto findFirstUserWaitingListByWaitingListId(Long waitingListId) {
+        return userWaitingListMapper.toUserWaitingListDto(userWaitingListRepository.findByWaitingListIdAndUserPosition(waitingListId, 1L));
+    }
+
+    /**
+     * Method to delete all UserWaitingList where mailingDate is greater than or equal to 2 days
+     */
+    public void deleteExpiredUserWaitingList() {
+        List<UserWaitingList> userWaitingLists = userWaitingListRepository.findAllWhereMailingDateIsGreaterThanOrEqualTo2Days();
+        for (UserWaitingList userWaitingList : userWaitingLists) {
+            deleteUserWaitingList(userWaitingList.getId());
+        }
     }
 }

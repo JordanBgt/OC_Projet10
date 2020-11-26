@@ -30,8 +30,14 @@ public class UserWaitingListController {
         return userWaitingListService.findAllByUserId(userId);
     }
 
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/firstUser/{waitingListId}")
+    public UserWaitingListDto getFirstUserWaitingListByWaitingListId(@PathVariable Long waitingListId) {
+        return userWaitingListService.findFirstUserWaitingListByWaitingListId(waitingListId);
+    }
+
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Void> addUserToWaitingList(@RequestBody UserWaitingListDto userWaitingListDto) {
         try {
             userWaitingListService.createUserWaitingList(userWaitingListDto);
@@ -45,10 +51,24 @@ public class UserWaitingListController {
         return ResponseEntity.noContent().build();
     }
 
+    @Secured("ROLE_ADMIN")
+    @PutMapping
+    public ResponseEntity<Void> updateUserWaitingList(@RequestBody UserWaitingListDto userWaitingListDto) {
+        userWaitingListService.updateUserWaitingList(userWaitingListDto);
+        return ResponseEntity.noContent().build();
+    }
+
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/{userWaitingListId}")
     public ResponseEntity<Void> deleteUserWaitingList(@PathVariable Long userWaitingListId) {
         userWaitingListService.deleteUserWaitingList(userWaitingListId);
         return ResponseEntity.noContent().build();
+    }
+
+    @Secured("ROLE_ADMIN")
+    @DeleteMapping("/expired")
+    public ResponseEntity<Void> getAllExpiredUserWaitingList() {
+        userWaitingListService.deleteExpiredUserWaitingList();
+        return  ResponseEntity.noContent().build();
     }
 }

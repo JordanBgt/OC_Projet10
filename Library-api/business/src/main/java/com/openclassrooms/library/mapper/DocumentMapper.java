@@ -19,7 +19,8 @@ public interface DocumentMapper {
 
     @Mappings({
             @Mapping(target = "authorFirstName", source = "author.firstName"),
-            @Mapping(target = "authorLastName", source = "author.lastName")
+            @Mapping(target = "authorLastName", source = "author.lastName"),
+            @Mapping(target = "waitingListId", source = "waitingList.id")
     })
     DocumentLightDto toDocumentLightDto(Document document);
 }
