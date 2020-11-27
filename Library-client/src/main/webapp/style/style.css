@@ -152,3 +152,29 @@ form {
 .col-renewal-button {
     text-align: center;
 }
+
+.reservation-content {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.reservation-button {
+    align-self: center;
+}
+
+.reservation-profil-content span {
+    font-weight: bold;
+}
+
+.reservation-profil-list .list-group-item:nth-child(n+2) {
+    margin-top: 15px;
+}
+
+.reservation-button-div {
+    display: flex;
+}
+
+.reservation-profil-content .reservation_button {
+    margin: auto
+}

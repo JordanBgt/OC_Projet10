@@ -2,10 +2,16 @@ package com.openclassrooms.libraryclient.controller;
 
 import com.openclassrooms.libraryclient.model.Loan;
 import com.openclassrooms.libraryclient.model.User;
+import com.openclassrooms.libraryclient.model.UserProfil;
+import com.openclassrooms.libraryclient.model.UserWaitingList;
 import com.openclassrooms.libraryclient.proxy.LoanProxy;
+import com.openclassrooms.libraryclient.proxy.WaitingListProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +34,9 @@ public class ProfilController {
     @Autowired
     private LoanProxy loanProxy;
 
+    @Autowired
+    private WaitingListProxy waitingListProxy;
+
     private LocalDate currentDate = LocalDate.now();
 
     /**
@@ -44,10 +53,12 @@ public class ProfilController {
         User user = (User) session.getAttribute("user");
         String bearerToken = (String) session.getAttribute("auth-token");
         List<Loan> userLoans = loanProxy.getAllByUser(user.getId(), "Bearer " + bearerToken);
+        List<UserWaitingList> userWaitingLists = waitingListProxy.getUserWaitingLists(user.getId(), "Bearer " + bearerToken);
         userLoans.forEach(this::setLoansCssClass);
         userLoans.forEach(this::checkIfLoanCanBeRenewed);
         model.addAttribute("loans", userLoans);
         model.addAttribute("user", user);
+        model.addAttribute("userWaitingLists", userWaitingLists);
 
         return "profil";
     }
@@ -69,6 +80,22 @@ public class ProfilController {
     }
 
     /**
+     * Method to delete a userWaitingList
+     *
+     * @param id userWaitingListId
+     * @param session the session
+     *
+     * @return redirect to the profile page
+     * @see WaitingListProxy#deleteUserWaitingList(Long, String)
+     */
+    @GetMapping("/userWaitingList/{id}")
+    public ModelAndView deleteUserWaitingList(@PathVariable Long id, HttpSession session) {
+        String bearerToken = (String) session.getAttribute("auth-token");
+        waitingListProxy.deleteUserWaitingList(id, "Bearer " + bearerToken);
+        return new ModelAndView("redirect:/profil");
+    }
+
+    /**
      * Method to set loan css class depending on the number of days remaining between the current date and the end date of the loan
      *
      * @param loan loan for which we want to set the css class
@@ -84,6 +111,11 @@ public class ProfilController {
         }
     }
 
+    /**
+     * Method to check if a loan can be renewed
+     *
+     * @param loan laon to check
+     */
     private void checkIfLoanCanBeRenewed(Loan loan) {
         loan.setCanBeRenewed(!loan.isRenewed() && !currentDate.isAfter(loan.getEndDate()));
     }

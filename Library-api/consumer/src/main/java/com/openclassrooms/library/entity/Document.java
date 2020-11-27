@@ -45,6 +45,9 @@ public class Document {
     @Column(nullable = false, length = 20)
     private EDocumentCategory category;
 
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private WaitingList waitingList;
+
     public Document() {}
 
     public Document(Long id, String title, String isbn, String description, LocalDate publicationDate,
@@ -140,5 +143,13 @@ public class Document {
 
     public void setCategory(EDocumentCategory documentCategory) {
         this.category = documentCategory;
+    }
+
+    public WaitingList getWaitingList() {
+        return waitingList;
+    }
+
+    public void setWaitingList(WaitingList waitingList) {
+        this.waitingList = waitingList;
     }
 }

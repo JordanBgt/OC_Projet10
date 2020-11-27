@@ -3,6 +3,8 @@ package com.openclassrooms.library.controller;
 import com.openclassrooms.library.dto.DocumentDto;
 import com.openclassrooms.library.dto.DocumentLightDto;
 import com.openclassrooms.library.entity.criteria.DocumentSearch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -68,14 +70,15 @@ public class DocumentController {
     /**
      * Method to get a document
      * 
-     * @param id id of the searched document
-     *           
+     * @param documentId id of the searched document
+     * @param userId id of the user
+     *
      * @return a document
-     * @see DocumentService#findById(Long) 
+     * @see DocumentService#findById(Long, Long)
      */
-    @GetMapping("/{id}")
-    public DocumentDto getDocument(@PathVariable Long id) {
-        return documentService.findById(id);
+    @GetMapping("/{documentId}")
+    public DocumentDto getDocument(@PathVariable Long documentId, @RequestParam(required = false) Long userId) {
+        return documentService.findById(documentId, userId);
     }
 
     /**

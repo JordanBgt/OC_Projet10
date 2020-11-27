@@ -3,6 +3,9 @@ package com.openclassrooms.libraryclient.controller;
 import com.openclassrooms.libraryclient.model.*;
 import com.openclassrooms.libraryclient.proxy.DocumentProxy;
 import com.openclassrooms.libraryclient.proxy.ExemplarProxy;
+import com.openclassrooms.libraryclient.proxy.WaitingListProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +32,9 @@ public class DocumentController {
 
     @Autowired
     private ExemplarProxy exemplarProxy;
+
+    @Autowired
+    private WaitingListProxy waitingListProxy;
 
     private DocumentForm documentForm = new DocumentForm();
 
@@ -68,18 +75,32 @@ public class DocumentController {
      * @param id id of the requested document
      *
      * @return name of the requested jsp
-     * @see DocumentProxy#getDocument(Long)
+     * @see DocumentProxy#getDocument(Long, Long)
      * @see ExemplarProxy#getAllAvailableExemplarsByDocumentId(Long)
      */
     @GetMapping("/{id}")
-    public String getDocument(Model model, @PathVariable Long id) {
-        Document document = documentProxy.getDocument(id);
+    public String getDocument(HttpSession session, Model model, @PathVariable Long id) {
+        Long userId = (User) session.getAttribute("user") != null ? ((User) session.getAttribute("user")).getId() : null;
+        Document document = documentProxy.getDocument(id, userId);
         List<ExemplarAvailable> exemplars = exemplarProxy.getAllAvailableExemplarsByDocumentId(id);
         Optional<Integer> sumNmberExemplarsAvailable = exemplars.stream().map(ExemplarAvailable::getNumber).reduce(Integer::sum);
         model.addAttribute("document", document);
         model.addAttribute("exemplars", exemplars);
         model.addAttribute("sumExemplarsAvailable", sumNmberExemplarsAvailable);
         return "document-detail";
+    }
+
+    @GetMapping("/{id}/reserve")
+    public ModelAndView reserveDocument(HttpSession session, @PathVariable Long id, @RequestParam Long waitingListId) {
+        UserWaitingList userWaitingList = new UserWaitingList();
+        WaitingList waitingList = new WaitingList();
+        User user = (User) session.getAttribute("user");
+        String bearerToken = (String) session.getAttribute("auth-token");
+        waitingList.setId(waitingListId);
+        userWaitingList.setWaitingList(waitingList);
+        userWaitingList.setUser(user);
+        waitingListProxy.addUserToWaitingList(userWaitingList, "Bearer " + bearerToken);
+        return new ModelAndView("redirect:/documents/" + id);
     }
 
     /**

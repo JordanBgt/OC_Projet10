@@ -22,4 +22,6 @@ public interface ExemplarRepository extends CrudRepository<Exemplar, Long> {
             "GROUP BY library_id",
             nativeQuery = true)
     Collection<ExemplarAvailableDto> findAllAvailableByDocumentId(Long documentId);
+
+    Long countByDocumentId(Long documentId);
 }

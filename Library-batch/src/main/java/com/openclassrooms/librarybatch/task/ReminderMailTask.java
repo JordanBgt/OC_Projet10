@@ -20,7 +20,7 @@ import java.util.List;
  * @see LoanProxy
  */
 @Component
-public class SendMailTask {
+public class ReminderMailTask {
 
     @Autowired
     private LoanProxy loanProxy;

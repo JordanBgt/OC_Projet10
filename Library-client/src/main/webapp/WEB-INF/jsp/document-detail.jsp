@@ -52,7 +52,23 @@
                                 </li>
                             </c:forEach>
                         </c:when>
-                        <c:otherwise>Tous les exemplaires sont actuellement prêtés.</c:otherwise>
+                        <c:otherwise>
+                            <div class="reservation-content">
+                                <div>
+                                <p>Tous les exemplaires sont actuellement prêtés</p>
+                                <p>Prochaine date de retour prévue : ${document.waitingList.endDateNextLoanReturn}</p>
+                                <p>Nombre de personnes ayant reservé l'ouvrage : ${document.waitingList.numberUsersInWaitingList}</p>
+                                <p>Nombre de places disponibles dans la file d'attente : ${document.waitingList.size - document.waitingList.numberUsersInWaitingList}</p>
+                                </div>
+                                <c:if test="${document.canBeReserved}">
+                                    <div class="reservation-button">
+                                        <a href="<c:url value="/documents/${document.id}/reserve">
+                                            <c:param name="waitingListId" value="${document.waitingList.id}"/>
+                                            </c:url>" class="btn btn-primary" >Réserver</a>
+                                    </div>
+                                </c:if>
+                            </div>
+                        </c:otherwise>
                     </c:choose>
                 </ul>
             </div>
