@@ -145,6 +145,14 @@ public class LoanService {
         loanRepository.save(loan);
     }
 
+    public LocalDate findDateNextLoanReturnByDocumentId(Long documentId) {
+        Loan loan = loanRepository.findNextLoanReturnByDocumentId(documentId);
+        if (loan != null) {
+            return loan.getEndDate();
+        }
+        return null;
+    }
+
     /**
      * Method to delete a loan by its id
      *

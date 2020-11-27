@@ -17,4 +17,13 @@ public interface LoanRepository extends CrudRepository<Loan, Long> {
 
     @Query(value = "SELECT * FROM loan WHERE end_date < CURDATE() AND state = 'PENDING'", nativeQuery = true)
     List<Loan> findAllEndedLoans();
+
+    @Query(value = "SELECT * FROM loan WHERE exemplar_id IN (SELECT id FROM exemplar WHERE document_id = ?1) " +
+            "AND state = 'PENDING' ORDER BY end_date LIMIT 1",
+            nativeQuery = true)
+    Loan findNextLoanReturnByDocumentId(Long documentId);
+
+    @Query(value = "SELECT * FROM loan WHERE exemplar_id IN (SELECT id FROM exemplar WHERE document_id = ?1) " +
+            "AND state = 'PENDING' AND user_id = ?2", nativeQuery = true)
+    Loan findLoandByDocumentIdAndUserId(Long documentId, Long user_id);
 }
