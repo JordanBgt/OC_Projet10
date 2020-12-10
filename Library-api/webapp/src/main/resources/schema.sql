@@ -91,7 +91,7 @@ CREATE TABLE "waiting_list" (
 
 CREATE TABLE "user_waiting_list" (
                                      "id" bigint(20) NOT NULL PRIMARY KEY,
-                                     "date" date DEFAULT NULL,
+                                     "mailing_date" date DEFAULT NULL,
                                      "user_position" bigint(20) DEFAULT NULL,
                                      "user_id" bigint(20) NOT NULL,
                                      "waiting_list_id" bigint(20) NOT NULL,

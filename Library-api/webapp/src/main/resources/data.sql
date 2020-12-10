@@ -91,25 +91,32 @@ INSERT INTO "exemplar" ("id", "reference", "document_id", "library_id") VALUES
 (54, 'COMIC_9791026813910_1597230034659', 24, 25);
 
 INSERT INTO "hibernate_sequence" ("next_val") VALUES
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
+(55),
+(55),
+(55),
+(55),
+(55),
+(55),
+(55),
+(55),
+(55),
 (55);
 
 INSERT INTO "loan" ("id", "end_date", "renewed", "start_date", "state", "exemplar_id", "user_id") VALUES
 (4, '2020-08-15', FALSE, '2020-07-17', 'FINISHED', 30, 2),
-(5, '2020-09-07', FALSE, '2020-08-10', 'PENDING', 38, 2),
+(5, '2020-09-07', TRUE, '2020-08-10', 'PENDING', 38, 2),
 (6, '2020-10-15', FALSE, '2020-09-17', 'PENDING', 47, 2),
-(7, '2020-10-15', FALSE, '2020-09-17', 'PENDING', 53, 3);
+(7, '2020-10-15', FALSE, '2020-09-17', 'PENDING', 53, 3),
+(8, '2020-12-17', FALSE, '2020-12-03', 'PENDING', 54, 2),
+(9, '2020-12-17', FALSE, '2020-12-03', 'PENDING', 52, 3);
 
 
 INSERT INTO "user_role" ("user_id", "role_id") VALUES
 (1, 0),
 (2, 1),
 (3, 1);
+
+INSERT INTO "user_waiting_list" ("id", "user_position", "user_id", "waiting_list_id") VALUES
+(1, 1, 1, 9),
+(2, 1, 2, 8),
+(3, 2, 1, 8);
