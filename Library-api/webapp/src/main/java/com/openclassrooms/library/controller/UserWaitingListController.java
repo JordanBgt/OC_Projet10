@@ -67,7 +67,7 @@ public class UserWaitingListController {
 
     @Secured("ROLE_ADMIN")
     @DeleteMapping("/expired")
-    public ResponseEntity<Void> getAllExpiredUserWaitingList() {
+    public ResponseEntity<Void> deleteAllExpiredUserWaitingList() {
         userWaitingListService.deleteExpiredUserWaitingList();
         return  ResponseEntity.noContent().build();
     }

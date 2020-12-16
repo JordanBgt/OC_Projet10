@@ -10,7 +10,6 @@ import com.openclassrooms.library.entity.Exemplar;
 import com.openclassrooms.library.entity.Loan;
 import com.openclassrooms.library.entity.User;
 import com.openclassrooms.library.mapper.LoanMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -31,22 +30,23 @@ import java.util.stream.Collectors;
 @Service
 public class LoanService {
 
-    @Autowired
-    private LoanRepository loanRepository;
+    private final LoanRepository loanRepository;
 
-    @Autowired
-    private LoanMapper loanMapper;
+    private final LoanMapper loanMapper;
 
-    @Autowired
-    private ExemplarRepository exemplarRepository;
+    private final ExemplarRepository exemplarRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private final long loanPeriod;
 
-    public LoanService(AppProperties appProperties) {
+    public LoanService(AppProperties appProperties, LoanRepository loanRepository, LoanMapper loanMapper,
+                       ExemplarRepository exemplarRepository, UserRepository userRepository) {
         this.loanPeriod = appProperties.getLoanPeriod();
+        this.loanRepository = loanRepository;
+        this.loanMapper = loanMapper;
+        this.exemplarRepository = exemplarRepository;
+        this.userRepository = userRepository;
     }
 
     /**

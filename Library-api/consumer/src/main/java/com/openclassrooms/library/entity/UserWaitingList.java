@@ -28,6 +28,14 @@ public class UserWaitingList {
     public UserWaitingList() {
     }
 
+    public UserWaitingList(Long id, User user, WaitingList waitingList, Long userPosition, LocalDate mailingDate) {
+        this.id = id;
+        this.user = user;
+        this.waitingList = waitingList;
+        this.userPosition = userPosition;
+        this.mailingDate = mailingDate;
+    }
+
     public Long getId() {
         return id;
     }
