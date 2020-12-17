@@ -1,13 +1,22 @@
 package com.openclassrooms.library.service;
 
-import com.openclassrooms.library.dao.*;
-import com.querydsl.core.types.Predicate;
+import com.openclassrooms.library.dao.AuthorRepository;
+import com.openclassrooms.library.dao.DocumentRepository;
+import com.openclassrooms.library.dao.LoanRepository;
+import com.openclassrooms.library.dao.PublisherRepository;
+import com.openclassrooms.library.dao.UserWaitingListRepository;
 import com.openclassrooms.library.dao.predicate.DocumentPredicateBuilder;
 import com.openclassrooms.library.dto.DocumentDto;
 import com.openclassrooms.library.dto.DocumentLightDto;
-import com.openclassrooms.library.entity.*;
+import com.openclassrooms.library.entity.Author;
+import com.openclassrooms.library.entity.Document;
+import com.openclassrooms.library.entity.EDocumentCategory;
+import com.openclassrooms.library.entity.EDocumentType;
+import com.openclassrooms.library.entity.ExemplarAvailableDto;
+import com.openclassrooms.library.entity.Publisher;
 import com.openclassrooms.library.entity.criteria.DocumentSearch;
 import com.openclassrooms.library.mapper.DocumentMapper;
+import com.querydsl.core.types.Predicate;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,6 +27,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 /**
  * Service to manage documents
@@ -57,6 +67,9 @@ public class DocumentService {
 
     @Autowired
     private UserWaitingListRepository userWaitingListRepository;
+
+    @Autowired
+    private ExemplarService exemplarService;
 
     /**
      * Method to retrieve all documents. For each document, we convert the photo file to base 64
@@ -171,6 +184,10 @@ public class DocumentService {
      * @return boolean
      */
     private boolean checkIfDocumentCanBeReserved(DocumentDto document, Long userId) {
+        List<ExemplarAvailableDto> exemplarAvailableDtoList = exemplarService.findAllAvailableByDocumentId(document.getId());
+        if (!exemplarAvailableDtoList.isEmpty()) {
+            return false;
+        }
         if (document.getWaitingList().isFull()) {
             return false;
         } else if (userId == null) {

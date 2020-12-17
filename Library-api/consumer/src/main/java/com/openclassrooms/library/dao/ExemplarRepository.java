@@ -14,7 +14,7 @@ public interface ExemplarRepository extends CrudRepository<Exemplar, Long> {
 
     List<Exemplar> findAllByDocumentId(Long documentId);
 
-    @Query(value = "SELECT COUNT(*) as number, name as libraryName, ex.id as exemplarId " +
+    @Query(value = "SELECT COUNT(ex.id) as number, name as libraryName " +
             "FROM exemplar as ex " +
             "INNER JOIN library as lib ON library_id = lib.id " +
             "WHERE document_id = ? " +

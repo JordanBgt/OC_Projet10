@@ -1,16 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.3
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Sep 17, 2020 at 03:38 PM
+-- Generation Time: Nov 10, 2020 at 04:17 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.4.2
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -20,10 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `library`
+-- Database: `library_2`
 --
-CREATE DATABASE IF NOT EXISTS `library` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `library`;
 
 -- --------------------------------------------------------
 
@@ -31,7 +26,6 @@ USE `library`;
 -- Table structure for table `author`
 --
 
-DROP TABLE IF EXISTS `author`;
 CREATE TABLE `author` (
   `id` bigint(20) NOT NULL,
   `first_name` varchar(100) NOT NULL,
@@ -56,7 +50,6 @@ INSERT INTO `author` (`id`, `first_name`, `last_name`) VALUES
 -- Table structure for table `document`
 --
 
-DROP TABLE IF EXISTS `document`;
 CREATE TABLE `document` (
   `id` bigint(20) NOT NULL,
   `category` varchar(20) NOT NULL,
@@ -67,23 +60,24 @@ CREATE TABLE `document` (
   `type` varchar(10) NOT NULL,
   `author_id` bigint(20) NOT NULL,
   `photo_id` bigint(20) DEFAULT NULL,
-  `publisher_id` bigint(20) DEFAULT NULL
+  `publisher_id` bigint(20) DEFAULT NULL,
+  `waiting_list_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `document`
 --
 
-INSERT INTO `document` (`id`, `category`, `description`, `isbn`, `publication_date`, `title`, `type`, `author_id`, `photo_id`, `publisher_id`) VALUES
-(4, 'NOVEL', 'Le récit des aventures poétiques et symboliques d\'un petit garçon venu d\'une autre planète, et de sa rencontre avec un aviateur échoué dans le désert du Sahara.', '978-2-07-061275-8', '2007-02-01', 'Le petit prince', 'BOOK', 2, 0, 3),
-(15, 'SCIENCE_FICTION', 'Quatre nouvelles puissantes et dérangeantes, quatre personnages confrontés à des situations extrêmes qui vont les faire basculer du côté obscur, plus une nouvelle inédite vraiment inquiétante... Vous qui entrez ici, perdez tout espoir', '978-2-253-19523-8', '2014-05-21', 'Nuit noire, étoiles mortes', 'BOOK', 6, 1, 10),
-(16, 'SCIENCE_FICTION', 'Imaginez une brume qui s\'abat soudainement sur une petite ville, une brume si épaisse que les clients d\'un supermarché hésitent à en ressortir. Il n\'en faut pas davantage au maître de l\'épouvante pour nous plonger dans le cauchemar avec un réalisme hallucinant. Chacune des nouvelles de ce volume possède le même pouvoir ensorcelant. Vous serez terrifié par un petit singe en peluche qui joue des cymbales. Vous redouterez de voir surgir le fantôme d\'un... camion. Vous saurez de quoi est capable un naufragé solitaire, lorsque la faim le tenaille et que la drogue décuple son courage. L\'art de faire surgir l\'effrayant ou le surnaturel au cœur d\'un monde rassurant et prosaïque... Les superbes décors du Maine, où vit Stephen King, se révèlent une fois encore peuplés de sortilèges et de malédictions. ', '978-2-253-15159-3', '2006-06-07', 'Brume', 'BOOK', 6, 2, 10),
-(17, 'SCIENCE_FICTION', 'Situé dans les montagnes Rocheuses, l\'Overlook Palace passe pour être l\'un des plus beaux lieux du monde. Confort, luxe, volupté. L\'hiver, l\'hôtel est fermé. Coupé du monde par le froid et la neige. Alors, seul l\'habite un gardien. Celui qui a été engagé cet hiver-là s\'appelle Jack Torrance : c\'est un alcoolique, un écrivain raté, qui tente d\'échapper au désespoir. Avec lui vivent sa femme, Wendy, et leur enfant, Danny.Danny qui possède le don de voir, de ressusciter les choses et les êtres que l\'on croit disparus. Ce qu\'il sent, lui, dans les cent dix chambres vides de l\'Overlook Palace, c\'est la présence du démon. Cauchemar ou réalité, le corps de cette femme assassinée ? ces bruits de fête qui dérivent dans les couloirs ? Cette vie si étrange qui anime l\'hôtel ? Un récit envoûtant immortalisé à l\'écran par Stanley Kubrick.', '978-2-253-15162-3', '2007-10-31', 'Shining', 'BOOK', 6, 3, 10),
-(19, 'THRILLER', 'Paul Copeland a mis vingt ans pour accepter l\'idée que sa soeur, comme trois autres adolescents cette nuit-là, est morte assassinée dans le camp de vacances du lac Charmaine. Même si deux corps seulement ont été retrouvés dans les bois, les chances de revoir Camille vivante se sont évanouies avec le temps. Aujourd\'hui, Paul est à la morgue et c\'est tout son passé qui lui saute à la gorge. Devant ses yeux, un espoir fou.Le cadavre d\'un homme. L\'autre adolescent porté disparu... ', '978-2-266-20763-8', '2011-09-01', 'Dans les bois', 'BOOK', 7, 4, 11),
-(20, 'THRILLER', 'Et si l\'amour repoussait les frontières de la mort ? Une exceptionnelle histoire d\'amour mêlée d\'émotion et de tension dramatique. David Beck et sa femme Elizabeth ont vingt-cinq ans et s\'aiment depuis l\'enfance. Comme chaque année, ils retournent sur les lieux de leur premier baiser, le lac Charmaine, en Pennsylvanie. Mais la baignade tourne au cauchemar. Elizabeth est enlevée, David, assommé.Le cadavre d\'Elizabeth sera retrouvé non loin de là, marqué au fer rouge. Huit ans plus tard, le souvenir de cette nuit d\'effroi hante toujours David. À l\'approche de l\'anniversaire du drame, il reçoit un étrange email anonyme contenant un message codé dont seuls Elizabeth et lui connaissent la clé. Qui le lui a envoyé ? Dans quel but ? Si c\'est une blague, elle est de très mauvais goût : Elizabeth est morte ; son père, Hoyt Parker, un ancien inspecteur de la police new-yorkaise, a formellement identifié son corps.Et pourtant... Le jour suivant, David reçoit un nouveau message, clique sur le lien et découvre le site d\'une caméra de surveillance. Au milieu de la foule, un visage familier... Elizabeth ? Est-elle toujours en vie ? Pourquoi est-elle restée cachée aussi longtemps ? Pour retrouver sa femme, sa quête de vérité va mener David sur les traces d\'un passé au goût amer... ', '978-2-266-20770-6', '2011-09-01', 'Ne le dis à personne', 'BOOK', 7, 5, 11),
-(22, 'TECHNOLOGY', 'Réédition d\'un des plus grands classiques de la littérature informatique. Ecrit dans un style d\'une clarté absolue, cet ouvrage réussit le tour de force d\'être à la fois un livre de réflexion approfondie sur les concepts objet et un ouvrage pratique, apportant des réponses concrètes aux questions que se posent tous les programmeurs et concepteurs de logiciels : comment construire des applications logicielles fiables, performantes, faciles à utiliser et à faire évoluer ? Théorie du typage, gestion de la mémoire, techniques d\'héritage, programmation concurrente, objets distribués, persistance et bases de données objet, analyse et conception, réutilisabilité... Tous les aspects du processus de développement logiciel et des technologies objet sont expliqués et discutés dans leurs moindres détails, dans un style brillant, souvent drôle et provocateur.', '978-2-212-67500-9', '2017-10-26', 'Conception et programmation orientée objet', 'BOOK', 21, 6, 12),
-(23, 'SCIENCE_FICTION', 'Retrouvons Lucy Weber là où nous l\'avions laissé ! En devenant la nouvelle Black Hammer, la jeune femme prend la relève de son père et endosse les responsabilités qui incombent à de tels pouvoirs. Mais alors qu\'elle s\'apprête à révéler aux héros de la ferme comment ils s\'y sont retrouvés coincés et, surtout, comment s\'en échapper, Lucy disparaît aussi étrangement qu\'elle était apparue ! Piégée dans un monde peuplé de dieux emo, d\'hommes anthropomorphes et autres héros tous plus cinglés les uns que les autres, qui sera en mesure de la sauver ? BLACK HAMMER est la dernière création en date de Jeff LEMIRE.Après l\'anticipation post-apocalyptique de SWEET TOOTH et la science-fiction avec DESCENDER, voici la déclaration d\'amour de l\'auteur canadien pour les super-héros. Imaginée dès 2007, débutée en 2014 avec Dean ORMSTON, la série voit aujourd\'hui le jour et, avec l\'Eisner Award 2017 de la Nouvelle Meilleure Série récemment remporté, signe un nouveau succès pour l\'éditeur Dark Horse. ', '979-10-268-1646-1', '2019-07-05', 'Black Hammer Tome 3 : L\'heure du jugement', 'COMIC', 8, 7, 13),
-(24, 'SCIENCE_FICTION', 'Plus inspiré d\'Andersen et des frères Grimm que de Walt Disney, Bill WillinghaM a imaginé avec Fables une saga qui tint ses lecteurs en haleine durant plus de dix ans, mêlant batailles épiques, destins tragiques et relations intimes en une fresque digne des plus grands classiques de la bande dessinée internationale. Découvrez le quotidien de Blanche-Neige, du Grand Méchant Loup, des Trois Petits Cochons, de Pinocchio et de toutes les autres créatures fabuleuses nées du folklore mondial, désormais contraintes de vivre ensemble...Sélectionnée au festival d\'Angoulême et récompensée par quinze Eisner Awards, la plus haute distinction de la bande dessinée américaine, Fables vous est aujourd\'hui proposée dans une édition intégrale en dix volumes.', '979-10-268-1391-0', '2018-01-19', 'Fables intégrale volume 1', 'COMIC', 9, 8, 13);
+INSERT INTO `document` (`id`, `category`, `description`, `isbn`, `publication_date`, `title`, `type`, `author_id`, `photo_id`, `publisher_id`, waiting_list_id) VALUES
+(4, 'NOVEL', 'Le récit des aventures poétiques et symboliques d\'un petit garçon venu d\'une autre planète, et de sa rencontre avec un aviateur échoué dans le désert du Sahara.', '978-2-07-061275-8', '2007-02-01', 'Le petit prince', 'BOOK', 2, 0, 3, 1),
+(15, 'SCIENCE_FICTION', 'Quatre nouvelles puissantes et dérangeantes, quatre personnages confrontés à des situations extrêmes qui vont les faire basculer du côté obscur, plus une nouvelle inédite vraiment inquiétante... Vous qui entrez ici, perdez tout espoir', '978-2-253-19523-8', '2014-05-21', 'Nuit noire, étoiles mortes', 'BOOK', 6, 1, 10,2),
+(16, 'SCIENCE_FICTION', 'Imaginez une brume qui s\'abat soudainement sur une petite ville, une brume si épaisse que les clients d\'un supermarché hésitent à en ressortir. Il n\'en faut pas davantage au maître de l\'épouvante pour nous plonger dans le cauchemar avec un réalisme hallucinant. Chacune des nouvelles de ce volume possède le même pouvoir ensorcelant. Vous serez terrifié par un petit singe en peluche qui joue des cymbales. Vous redouterez de voir surgir le fantôme d\'un... camion. Vous saurez de quoi est capable un naufragé solitaire, lorsque la faim le tenaille et que la drogue décuple son courage. L\'art de faire surgir l\'effrayant ou le surnaturel au cœur d\'un monde rassurant et prosaïque... Les superbes décors du Maine, où vit Stephen King, se révèlent une fois encore peuplés de sortilèges et de malédictions. ', '978-2-253-15159-3', '2006-06-07', 'Brume', 'BOOK', 6, 2, 10, 3),
+(17, 'SCIENCE_FICTION', 'Situé dans les montagnes Rocheuses, l\'Overlook Palace passe pour être l\'un des plus beaux lieux du monde. Confort, luxe, volupté. L\'hiver, l\'hôtel est fermé. Coupé du monde par le froid et la neige. Alors, seul l\'habite un gardien. Celui qui a été engagé cet hiver-là s\'appelle Jack Torrance : c\'est un alcoolique, un écrivain raté, qui tente d\'échapper au désespoir. Avec lui vivent sa femme, Wendy, et leur enfant, Danny.Danny qui possède le don de voir, de ressusciter les choses et les êtres que l\'on croit disparus. Ce qu\'il sent, lui, dans les cent dix chambres vides de l\'Overlook Palace, c\'est la présence du démon. Cauchemar ou réalité, le corps de cette femme assassinée ? ces bruits de fête qui dérivent dans les couloirs ? Cette vie si étrange qui anime l\'hôtel ? Un récit envoûtant immortalisé à l\'écran par Stanley Kubrick.', '978-2-253-15162-3', '2007-10-31', 'Shining', 'BOOK', 6, 3, 10, 4),
+(19, 'THRILLER', 'Paul Copeland a mis vingt ans pour accepter l\'idée que sa soeur, comme trois autres adolescents cette nuit-là, est morte assassinée dans le camp de vacances du lac Charmaine. Même si deux corps seulement ont été retrouvés dans les bois, les chances de revoir Camille vivante se sont évanouies avec le temps. Aujourd\'hui, Paul est à la morgue et c\'est tout son passé qui lui saute à la gorge. Devant ses yeux, un espoir fou.Le cadavre d\'un homme. L\'autre adolescent porté disparu... ', '978-2-266-20763-8', '2011-09-01', 'Dans les bois', 'BOOK', 7, 4, 11, 5),
+(20, 'THRILLER', 'Et si l\'amour repoussait les frontières de la mort ? Une exceptionnelle histoire d\'amour mêlée d\'émotion et de tension dramatique. David Beck et sa femme Elizabeth ont vingt-cinq ans et s\'aiment depuis l\'enfance. Comme chaque année, ils retournent sur les lieux de leur premier baiser, le lac Charmaine, en Pennsylvanie. Mais la baignade tourne au cauchemar. Elizabeth est enlevée, David, assommé.Le cadavre d\'Elizabeth sera retrouvé non loin de là, marqué au fer rouge. Huit ans plus tard, le souvenir de cette nuit d\'effroi hante toujours David. À l\'approche de l\'anniversaire du drame, il reçoit un étrange email anonyme contenant un message codé dont seuls Elizabeth et lui connaissent la clé. Qui le lui a envoyé ? Dans quel but ? Si c\'est une blague, elle est de très mauvais goût : Elizabeth est morte ; son père, Hoyt Parker, un ancien inspecteur de la police new-yorkaise, a formellement identifié son corps.Et pourtant... Le jour suivant, David reçoit un nouveau message, clique sur le lien et découvre le site d\'une caméra de surveillance. Au milieu de la foule, un visage familier... Elizabeth ? Est-elle toujours en vie ? Pourquoi est-elle restée cachée aussi longtemps ? Pour retrouver sa femme, sa quête de vérité va mener David sur les traces d\'un passé au goût amer... ', '978-2-266-20770-6', '2011-09-01', 'Ne le dis à personne', 'BOOK', 7, 5, 11, 6),
+(22, 'TECHNOLOGY', 'Réédition d\'un des plus grands classiques de la littérature informatique. Ecrit dans un style d\'une clarté absolue, cet ouvrage réussit le tour de force d\'être à la fois un livre de réflexion approfondie sur les concepts objet et un ouvrage pratique, apportant des réponses concrètes aux questions que se posent tous les programmeurs et concepteurs de logiciels : comment construire des applications logicielles fiables, performantes, faciles à utiliser et à faire évoluer ? Théorie du typage, gestion de la mémoire, techniques d\'héritage, programmation concurrente, objets distribués, persistance et bases de données objet, analyse et conception, réutilisabilité... Tous les aspects du processus de développement logiciel et des technologies objet sont expliqués et discutés dans leurs moindres détails, dans un style brillant, souvent drôle et provocateur.', '978-2-212-67500-9', '2017-10-26', 'Conception et programmation orientée objet', 'BOOK', 21, 6, 12, 7),
+(23, 'SCIENCE_FICTION', 'Retrouvons Lucy Weber là où nous l\'avions laissé ! En devenant la nouvelle Black Hammer, la jeune femme prend la relève de son père et endosse les responsabilités qui incombent à de tels pouvoirs. Mais alors qu\'elle s\'apprête à révéler aux héros de la ferme comment ils s\'y sont retrouvés coincés et, surtout, comment s\'en échapper, Lucy disparaît aussi étrangement qu\'elle était apparue ! Piégée dans un monde peuplé de dieux emo, d\'hommes anthropomorphes et autres héros tous plus cinglés les uns que les autres, qui sera en mesure de la sauver ? BLACK HAMMER est la dernière création en date de Jeff LEMIRE.Après l\'anticipation post-apocalyptique de SWEET TOOTH et la science-fiction avec DESCENDER, voici la déclaration d\'amour de l\'auteur canadien pour les super-héros. Imaginée dès 2007, débutée en 2014 avec Dean ORMSTON, la série voit aujourd\'hui le jour et, avec l\'Eisner Award 2017 de la Nouvelle Meilleure Série récemment remporté, signe un nouveau succès pour l\'éditeur Dark Horse. ', '979-10-268-1646-1', '2019-07-05', 'Black Hammer Tome 3 : L\'heure du jugement', 'COMIC', 8, 7, 13, 8),
+(24, 'SCIENCE_FICTION', 'Plus inspiré d\'Andersen et des frères Grimm que de Walt Disney, Bill WillinghaM a imaginé avec Fables une saga qui tint ses lecteurs en haleine durant plus de dix ans, mêlant batailles épiques, destins tragiques et relations intimes en une fresque digne des plus grands classiques de la bande dessinée internationale. Découvrez le quotidien de Blanche-Neige, du Grand Méchant Loup, des Trois Petits Cochons, de Pinocchio et de toutes les autres créatures fabuleuses nées du folklore mondial, désormais contraintes de vivre ensemble...Sélectionnée au festival d\'Angoulême et récompensée par quinze Eisner Awards, la plus haute distinction de la bande dessinée américaine, Fables vous est aujourd\'hui proposée dans une édition intégrale en dix volumes.', '979-10-268-1391-0', '2018-01-19', 'Fables intégrale volume 1', 'COMIC', 9, 8, 13, 9);
 
 -- --------------------------------------------------------
 
@@ -91,7 +85,6 @@ INSERT INTO `document` (`id`, `category`, `description`, `isbn`, `publication_da
 -- Table structure for table `exemplar`
 --
 
-DROP TABLE IF EXISTS `exemplar`;
 CREATE TABLE `exemplar` (
   `id` bigint(20) NOT NULL,
   `reference` varchar(45) NOT NULL,
@@ -139,7 +132,6 @@ INSERT INTO `exemplar` (`id`, `reference`, `document_id`, `library_id`) VALUES
 -- Table structure for table `hibernate_sequence`
 --
 
-DROP TABLE IF EXISTS `hibernate_sequence`;
 CREATE TABLE `hibernate_sequence` (
   `next_val` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -149,16 +141,17 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
-(8),
-(55);
+(30),
+(30),
+(30),
+(30),
+(30),
+(30),
+(30),
+(30),
+(30),
+(30),
+(30);
 
 -- --------------------------------------------------------
 
@@ -166,7 +159,6 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 -- Table structure for table `library`
 --
 
-DROP TABLE IF EXISTS `library`;
 CREATE TABLE `library` (
   `id` bigint(20) NOT NULL,
   `name` varchar(200) NOT NULL
@@ -187,7 +179,6 @@ INSERT INTO `library` (`id`, `name`) VALUES
 -- Table structure for table `loan`
 --
 
-DROP TABLE IF EXISTS `loan`;
 CREATE TABLE `loan` (
   `id` bigint(20) NOT NULL,
   `end_date` date DEFAULT NULL,
@@ -214,7 +205,6 @@ INSERT INTO `loan` (`id`, `end_date`, `renewed`, `start_date`, `state`, `exempla
 -- Table structure for table `photo`
 --
 
-DROP TABLE IF EXISTS `photo`;
 CREATE TABLE `photo` (
   `id` bigint(20) NOT NULL,
   `extension` varchar(10) NOT NULL,
@@ -242,7 +232,6 @@ INSERT INTO `photo` (`id`, `extension`, `name`) VALUES
 -- Table structure for table `publisher`
 --
 
-DROP TABLE IF EXISTS `publisher`;
 CREATE TABLE `publisher` (
   `id` bigint(20) NOT NULL,
   `name` varchar(100) NOT NULL
@@ -265,7 +254,6 @@ INSERT INTO `publisher` (`id`, `name`) VALUES
 -- Table structure for table `role`
 --
 
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` bigint(20) NOT NULL,
   `name` varchar(20) DEFAULT NULL
@@ -285,7 +273,6 @@ INSERT INTO `role` (`id`, `name`) VALUES
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -308,7 +295,6 @@ INSERT INTO `user` (`id`, `email`, `password`, `username`) VALUES
 -- Table structure for table `user_role`
 --
 
-DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `user_id` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL
@@ -322,6 +308,47 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (1, 0),
 (2, 1),
 (3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_waiting_list`
+--
+
+CREATE TABLE `user_waiting_list` (
+  `id` bigint(20) NOT NULL,
+  `mailing_date` date DEFAULT NULL,
+  `user_position` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `waiting_list_id` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `waiting_list`
+--
+
+CREATE TABLE `waiting_list` (
+  `id` bigint(20) NOT NULL,
+  `size` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_role`
+--
+INSERT INTO `waiting_list` (`id`, `size`) VALUES
+(1, 16),
+(2, 6),
+(3, 2),
+(4, 12),
+(5, 4),
+(6, 8),
+(7, 2),
+(8, 2),
+(9, 4);
+
+-- --------------------------------------------------------
 
 --
 -- Indexes for dumped tables
@@ -340,7 +367,8 @@ ALTER TABLE `document`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FKdm08gx0272u3a8itdalt354f5` (`author_id`),
   ADD KEY `FK4u1bbcqehjkfsq3s4ni83fujj` (`photo_id`),
-  ADD KEY `FK7bopjhbrlf99vr3ffs4gm5k87` (`publisher_id`);
+  ADD KEY `FK7bopjhbrlf99vr3ffs4gm5k87` (`publisher_id`),
+  ADD KEY `FKeskbj2aj0b43d21styh57lah0` (`waiting_list_id`);
 
 --
 -- Indexes for table `exemplar`
@@ -396,6 +424,20 @@ ALTER TABLE `user_role`
   ADD KEY `FKa68196081fvovjhkek5m97n3y` (`role_id`);
 
 --
+-- Indexes for table `user_waiting_list`
+--
+ALTER TABLE `user_waiting_list`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKpxutvs7cbavc0x8a1bc0r3cy3` (`user_id`),
+  ADD KEY `FKga0mft1ciimkvwipdm7kypes8` (`waiting_list_id`);
+
+--
+-- Indexes for table `waiting_list`
+--
+ALTER TABLE `waiting_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Constraints for dumped tables
 --
 
@@ -405,7 +447,8 @@ ALTER TABLE `user_role`
 ALTER TABLE `document`
   ADD CONSTRAINT `FK4u1bbcqehjkfsq3s4ni83fujj` FOREIGN KEY (`photo_id`) REFERENCES `photo` (`id`),
   ADD CONSTRAINT `FK7bopjhbrlf99vr3ffs4gm5k87` FOREIGN KEY (`publisher_id`) REFERENCES `publisher` (`id`),
-  ADD CONSTRAINT `FKdm08gx0272u3a8itdalt354f5` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`);
+  ADD CONSTRAINT `FKdm08gx0272u3a8itdalt354f5` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`),
+  ADD CONSTRAINT `FKeskbj2aj0b43d21styh57lah0` FOREIGN KEY (`waiting_list_id`) REFERENCES `waiting_list` (`id`);
 
 --
 -- Constraints for table `exemplar`
@@ -427,8 +470,13 @@ ALTER TABLE `loan`
 ALTER TABLE `user_role`
   ADD CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
-SET FOREIGN_KEY_CHECKS=1;
-COMMIT;
+
+--
+-- Constraints for table `user_waiting_list`
+--
+ALTER TABLE `user_waiting_list`
+  ADD CONSTRAINT `FKga0mft1ciimkvwipdm7kypes8` FOREIGN KEY (`waiting_list_id`) REFERENCES `waiting_list` (`id`),
+  ADD CONSTRAINT `FKpxutvs7cbavc0x8a1bc0r3cy3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

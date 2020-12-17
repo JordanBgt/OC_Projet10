@@ -14,7 +14,7 @@ public interface ExemplarMapper {
 
     @Mappings({
             @Mapping(target = "documentTitle", source = "document.title"),
-            @Mapping(target = "loanEndDate", defaultValue = "null")
+            @Mapping(target = "loanEndDate", ignore = true)
     })
     ExemplarLightDto toExemplarLightDto(Exemplar exemplar);
 }

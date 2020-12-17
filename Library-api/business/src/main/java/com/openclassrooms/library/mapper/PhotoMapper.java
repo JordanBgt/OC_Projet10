@@ -10,7 +10,7 @@ import org.mapstruct.Mappings;
 public interface PhotoMapper {
 
     @Mappings({
-            @Mapping(target = "fileToBase64String", defaultValue = "null")
+            @Mapping(target = "fileToBase64String", ignore = true)
     })
     PhotoDto toPhotoDto(Photo photo);
 }
