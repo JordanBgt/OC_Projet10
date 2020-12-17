@@ -85,7 +85,7 @@ public class UserWaitingListService {
         UserWaitingList userWaitingList = userWaitingListRepository.findById(userWaitingListId)
                 .orElseThrow(EntityNotFoundException::new);
         List<UserWaitingList> userWaitingListList = userWaitingListRepository
-                .findAllByUserPositionGreaterThan(userWaitingList.getUserPosition());
+                .findAllByIdAndUserPositionGreaterThan(userWaitingList.getId(), userWaitingList.getUserPosition());
         userWaitingListRepository.delete(userWaitingList);
         for(UserWaitingList user : userWaitingListList) {
             user.setUserPosition(user.getUserPosition() -1);
