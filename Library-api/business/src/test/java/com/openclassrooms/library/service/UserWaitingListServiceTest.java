@@ -70,7 +70,7 @@ public class UserWaitingListServiceTest {
         userWaitingList3.setUserPosition(3L);
         List<UserWaitingList> listOfUserWaitingList = List.of(userWaitingList2, userWaitingList3);
         when(userWaitingListRepository.findById(userWaitingList1.getId())).thenReturn(Optional.of(userWaitingList1));
-        when(userWaitingListRepository.findAllByUserPositionGreaterThan(userWaitingList1.getUserPosition())).thenReturn(listOfUserWaitingList);
+        when(userWaitingListRepository.findAllByIdAndUserPositionGreaterThan(userWaitingList1.getId(),userWaitingList1.getUserPosition())).thenReturn(listOfUserWaitingList);
         doNothing().when(userWaitingListRepository).delete(userWaitingList1);
         when(userWaitingListRepository.save(any(UserWaitingList.class))).thenReturn(null);
 

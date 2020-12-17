@@ -16,7 +16,7 @@ public interface UserWaitingListRepository extends CrudRepository<UserWaitingLis
 
     UserWaitingList findByWaitingListIdAndUserId(Long waitingListId, Long userId);
 
-    List<UserWaitingList> findAllByUserPositionGreaterThan(Long position);
+    List<UserWaitingList> findAllByIdAndUserPositionGreaterThan(Long id, Long position);
 
     List<UserWaitingList> findAllByUserId(Long userId);
 
