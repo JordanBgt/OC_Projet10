@@ -3,11 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Nov 10, 2020 at 04:17 PM
+-- Generation Time: Dec 17, 2020 at 10:50 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.4.2
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,6 +22,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `library_2`
 --
+CREATE DATABASE IF NOT EXISTS `library_2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `library_2`;
 
 -- --------------------------------------------------------
 
@@ -68,9 +73,9 @@ CREATE TABLE `document` (
 -- Dumping data for table `document`
 --
 
-INSERT INTO `document` (`id`, `category`, `description`, `isbn`, `publication_date`, `title`, `type`, `author_id`, `photo_id`, `publisher_id`, waiting_list_id) VALUES
+INSERT INTO `document` (`id`, `category`, `description`, `isbn`, `publication_date`, `title`, `type`, `author_id`, `photo_id`, `publisher_id`, `waiting_list_id`) VALUES
 (4, 'NOVEL', 'Le récit des aventures poétiques et symboliques d\'un petit garçon venu d\'une autre planète, et de sa rencontre avec un aviateur échoué dans le désert du Sahara.', '978-2-07-061275-8', '2007-02-01', 'Le petit prince', 'BOOK', 2, 0, 3, 1),
-(15, 'SCIENCE_FICTION', 'Quatre nouvelles puissantes et dérangeantes, quatre personnages confrontés à des situations extrêmes qui vont les faire basculer du côté obscur, plus une nouvelle inédite vraiment inquiétante... Vous qui entrez ici, perdez tout espoir', '978-2-253-19523-8', '2014-05-21', 'Nuit noire, étoiles mortes', 'BOOK', 6, 1, 10,2),
+(15, 'SCIENCE_FICTION', 'Quatre nouvelles puissantes et dérangeantes, quatre personnages confrontés à des situations extrêmes qui vont les faire basculer du côté obscur, plus une nouvelle inédite vraiment inquiétante... Vous qui entrez ici, perdez tout espoir', '978-2-253-19523-8', '2014-05-21', 'Nuit noire, étoiles mortes', 'BOOK', 6, 1, 10, 2),
 (16, 'SCIENCE_FICTION', 'Imaginez une brume qui s\'abat soudainement sur une petite ville, une brume si épaisse que les clients d\'un supermarché hésitent à en ressortir. Il n\'en faut pas davantage au maître de l\'épouvante pour nous plonger dans le cauchemar avec un réalisme hallucinant. Chacune des nouvelles de ce volume possède le même pouvoir ensorcelant. Vous serez terrifié par un petit singe en peluche qui joue des cymbales. Vous redouterez de voir surgir le fantôme d\'un... camion. Vous saurez de quoi est capable un naufragé solitaire, lorsque la faim le tenaille et que la drogue décuple son courage. L\'art de faire surgir l\'effrayant ou le surnaturel au cœur d\'un monde rassurant et prosaïque... Les superbes décors du Maine, où vit Stephen King, se révèlent une fois encore peuplés de sortilèges et de malédictions. ', '978-2-253-15159-3', '2006-06-07', 'Brume', 'BOOK', 6, 2, 10, 3),
 (17, 'SCIENCE_FICTION', 'Situé dans les montagnes Rocheuses, l\'Overlook Palace passe pour être l\'un des plus beaux lieux du monde. Confort, luxe, volupté. L\'hiver, l\'hôtel est fermé. Coupé du monde par le froid et la neige. Alors, seul l\'habite un gardien. Celui qui a été engagé cet hiver-là s\'appelle Jack Torrance : c\'est un alcoolique, un écrivain raté, qui tente d\'échapper au désespoir. Avec lui vivent sa femme, Wendy, et leur enfant, Danny.Danny qui possède le don de voir, de ressusciter les choses et les êtres que l\'on croit disparus. Ce qu\'il sent, lui, dans les cent dix chambres vides de l\'Overlook Palace, c\'est la présence du démon. Cauchemar ou réalité, le corps de cette femme assassinée ? ces bruits de fête qui dérivent dans les couloirs ? Cette vie si étrange qui anime l\'hôtel ? Un récit envoûtant immortalisé à l\'écran par Stanley Kubrick.', '978-2-253-15162-3', '2007-10-31', 'Shining', 'BOOK', 6, 3, 10, 4),
 (19, 'THRILLER', 'Paul Copeland a mis vingt ans pour accepter l\'idée que sa soeur, comme trois autres adolescents cette nuit-là, est morte assassinée dans le camp de vacances du lac Charmaine. Même si deux corps seulement ont été retrouvés dans les bois, les chances de revoir Camille vivante se sont évanouies avec le temps. Aujourd\'hui, Paul est à la morgue et c\'est tout son passé qui lui saute à la gorge. Devant ses yeux, un espoir fou.Le cadavre d\'un homme. L\'autre adolescent porté disparu... ', '978-2-266-20763-8', '2011-09-01', 'Dans les bois', 'BOOK', 7, 4, 11, 5),
@@ -141,17 +146,16 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(30),
-(30),
-(30),
-(30),
-(30),
-(30),
-(30),
-(30),
-(30),
-(30),
-(30);
+(21),
+(21),
+(21),
+(21),
+(21),
+(21),
+(21),
+(21),
+(21),
+(55);
 
 -- --------------------------------------------------------
 
@@ -195,9 +199,10 @@ CREATE TABLE `loan` (
 
 INSERT INTO `loan` (`id`, `end_date`, `renewed`, `start_date`, `state`, `exemplar_id`, `user_id`) VALUES
 (4, '2020-08-15', b'0', '2020-07-17', 'FINISHED', 30, 2),
-(5, '2020-09-07', b'0', '2020-08-10', 'PENDING', 38, 2),
-(6, '2020-10-15', b'0', '2020-09-17', 'PENDING', 47, 2),
-(7, '2020-10-15', b'0', '2020-09-17', 'PENDING', 53, 3);
+(19, '2021-01-12', b'0', '2020-12-15', 'PENDING', 38, 2),
+(20, '2021-01-12', b'0', '2020-12-15', 'PENDING', 52, 17),
+(21, '2020-12-16', b'0', '2020-12-01', 'PENDING', 39, 17),
+(22, '2021-01-06', b'0', '2020-12-17', 'PENDING', 40, 18);
 
 -- --------------------------------------------------------
 
@@ -286,8 +291,14 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `username`) VALUES
 (1, 'lesbiblios@gmail.com', '$2a$10$vzGGdpg2SYq4BA7JKo9mb.duAxvY2FMP2f23mArYgtIsm7cKzqWPa', 'admin'),
-(2, 'user1@email.com', '$2a$10$lV8gHFGvq.bKYrGgvvVVnOlK5MqcurHY9eKDYFZjG2NnFS.aN4kom', 'user1'),
-(3, 'user2@mail.com', '$2a$10$fbx2OmCQkwW4DW8HCLMtweUWh2L62irjaFRjvUSUMSZEPpOfXriQW', 'user2');
+(2, 'lesbiblios@gmail.com', '$2a$10$lV8gHFGvq.bKYrGgvvVVnOlK5MqcurHY9eKDYFZjG2NnFS.aN4kom', 'user1'),
+(3, 'lesbiblios@gmail.com', '$2a$10$fbx2OmCQkwW4DW8HCLMtweUWh2L62irjaFRjvUSUMSZEPpOfXriQW', 'user2'),
+(13, 'lesbiblios@gmail.com', '$2a$10$eQusTVhNx5BAVnSwWGt3RuUyO9zyVyumsrQvskLQ70RsmZqOnBFHm', 'user3'),
+(14, 'lesbiblios@gmail.com', '$2a$10$ZDS2tU7b.ITXh9v74K2M6eZlrOSc/wdhcPUR64gtnjvr686yf620S', 'user4'),
+(15, 'lesbiblios@gmail.com', '$2a$10$/Y9MjIwixJ4fZcs6D0Y4q.DAYPM8X3gJ/zRh9C2rZji2EbZf90WVO', 'user5'),
+(16, 'lesbiblios@gmail.com', '$2a$10$.0o69U.NOL6U/RyG7V2EY.iazGZsGZp.sDGEsAkRcRmlVB6oqF/KC', 'user6'),
+(17, 'lesbiblios@gmail.com', '$2a$10$Jm.RG09L332eRqSz/o.p/.BODgzplS2UeZNIgSs.gTU8r9rfg7sai', 'user7'),
+(18, 'lesbiblios@gmail.com', '$2a$10$L6Dqn4fYQsDSEhnTY9T.FOLkOOxxXeT4eAZcWujEEBzZN5SgcSSYe', 'user8');
 
 -- --------------------------------------------------------
 
@@ -307,7 +318,13 @@ CREATE TABLE `user_role` (
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (1, 0),
 (2, 1),
-(3, 1);
+(3, 1),
+(13, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(18, 1);
 
 -- --------------------------------------------------------
 
@@ -323,6 +340,16 @@ CREATE TABLE `user_waiting_list` (
   `waiting_list_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `user_waiting_list`
+--
+
+INSERT INTO `user_waiting_list` (`id`, `mailing_date`, `user_position`, `user_id`, `waiting_list_id`) VALUES
+(1, NULL, 1, 14, 3),
+(2, NULL, 2, 15, 3),
+(3, NULL, 1, 2, 8),
+(4, '2020-12-14', 1, 13, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -335,8 +362,9 @@ CREATE TABLE `waiting_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user_role`
+-- Dumping data for table `waiting_list`
 --
+
 INSERT INTO `waiting_list` (`id`, `size`) VALUES
 (1, 16),
 (2, 6),
@@ -347,8 +375,6 @@ INSERT INTO `waiting_list` (`id`, `size`) VALUES
 (7, 2),
 (8, 2),
 (9, 4);
-
--- --------------------------------------------------------
 
 --
 -- Indexes for dumped tables
@@ -477,6 +503,8 @@ ALTER TABLE `user_role`
 ALTER TABLE `user_waiting_list`
   ADD CONSTRAINT `FKga0mft1ciimkvwipdm7kypes8` FOREIGN KEY (`waiting_list_id`) REFERENCES `waiting_list` (`id`),
   ADD CONSTRAINT `FKpxutvs7cbavc0x8a1bc0r3cy3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+SET FOREIGN_KEY_CHECKS=1;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
